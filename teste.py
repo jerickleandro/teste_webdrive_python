@@ -1,15 +1,22 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from time import sleep
 
-# Parameters
-WP_LINK = 'https://web.whatsapp.com'
 
-## XPATHS
-CONTACTS = '//*[@id="main"]/header/div[2]/div[2]/span'
-SEND = '//*[@id="main"]/footer/div[1]/div[3]'
-MESSAGE_BOX = '//*[@id="main"]/footer/div[1]/div[2]/div/div[2]'
-NEW_CHAT = '//*[@id="side"]/header/div[2]/div/span/div[2]/div'
-SEARCH_CONTACT = '//*[@id="app"]/div/div/div[2]/div[1]/span/div/span/div/div[1]/div/label/input'
-FIRST_CONTACT = '//*[@id="app"]/div/div/div[2]/div[1]/span/div/span/div/div[2]/div/div/div/div[2]/div'
+driver = webdriver.Chrome()
+driver.get('https://web.whatsapp.com/')
+
+name = input('Enter the name of user or group : ')
+msg = input('Enter the message : ')
+count = int(input('Enter the count : '))
+
+#Scan the code before proceeding further
+input('Enter anything after scanning QR code')
+
+user = driver.find_element_by_xpath('//span[@title = "{}"]'.format(name))
+user.click()
+
+msg_box = driver.find_element_by_class_name('input-container')
+
+for i in range(count):
+    msg_box.send_keys(msg)
+    driver.find_element_by_class_name('compose-btn-send').click()
 
