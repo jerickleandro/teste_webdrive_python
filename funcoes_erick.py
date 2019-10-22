@@ -91,19 +91,22 @@ def alterar_sabores(tamanho, cardapio):
                 sabor = input()
                 sabores.pop(0)
                 sabores.insert(0,sabor)
-            if(op == '2'):
+            elif(op == '2'):
                 print(cardapio)
                 print('Escolha seu novo sabor')
                 sabor = input()
                 sabores.pop(1)
                 sabores.insert(1,sabor)
-            if(op == '3'):
+            elif(op == '3'):
                 for i in range(2):
                     print(cardapio)
-                    print('Escolha seu {} novo sabor'.format(i+1))
+                    print('Escolha seu {}º novo sabor'.format(i+1))
                     sabor = input()
                     sabores.pop(i)
                     sabores.insert(i,sabor)
+            else:
+                print('Opção invalida')
+                alterar_sabores(tamanho,cardapio)
     elif tamanho == 'G':
         if len(sabores)==1:
             print('Escolha o numero referente a novo sabor:/n')
@@ -116,9 +119,9 @@ def alterar_sabores(tamanho, cardapio):
             print('Você quer alterar qual sabor:')
             saborum = int(sabores[0])
             sabordois =  int(sabores[1])
-            print('1 - {}º '.format(menu[saborum]))
-            print('2 - {}º '.format(menu[sabordois]))
-            print('3 - Os dois sabores')
+            print('1 - {} '.format(menu[saborum]))
+            print('2 - {} '.format(menu[sabordois]))
+            print('3 - OS DOIS SABORES')
             op = input()
             if(op == '1'):
                 print(cardapio)
@@ -126,28 +129,31 @@ def alterar_sabores(tamanho, cardapio):
                 sabor = input()
                 sabores.pop(0)
                 sabores.insert(0,sabor)
-            if(op == '2'):
+            elif(op == '2'):
                 print(cardapio)
                 print('Escolha seu novo sabor')
                 sabor = input()
                 sabores.pop(1)
                 sabores.insert(1,sabor)
-            if(op == '3'):
+            elif(op == '3'):
                 for i in range(2):
                     print(cardapio)
-                    print('Escolha seu {} novo sabor'.format(i+1))
+                    print('Escolha seu {}º novo sabor'.format(i+1))
                     sabor = input()
                     sabores.pop(i)
                     sabores.insert(i,sabor)
+            else:
+                print('Opção invalida')
+                alterar_sabores(tamanho,cardapio)
         elif len(sabores)==3:
             print('Você quer alterar qual sabor:')
             saborum = int(sabores[0])
             sabordois =  int(sabores[1])
             sabortres =  int(sabores[2])
-            print('1 - {}º '.format(menu[saborum]))
-            print('2 - {}º '.format(menu[sabordois]))
-            print('3 - {}º '.format(menu[sabortres]))
-            print('4 - Os dois sabores')
+            print('1 - {} '.format(menu[saborum]))
+            print('2 - {} '.format(menu[sabordois]))
+            print('3 - {} '.format(menu[sabortres]))
+            print('4 - OS TRÊS SABORES')
             op = input()
             if(op == '1'):
                 print(cardapio)
@@ -155,25 +161,28 @@ def alterar_sabores(tamanho, cardapio):
                 sabor = input()
                 sabores.pop(0)
                 sabores.insert(0,sabor)
-            if(op == '2'):
+            elif(op == '2'):
                 print(cardapio)
                 print('Escolha seu novo sabor')
                 sabor = input()
                 sabores.pop(1)
                 sabores.insert(1,sabor)
-            if(op == '3'):
+            elif(op == '3'):
                 print(cardapio)
                 print('Escolha seu novo sabor')
                 sabor = input()
                 sabores.pop(2)
                 sabores.insert(2,sabor)    
-            if(op == '4'):
+            elif(op == '4'):
                 for i in range(3):
                     print(cardapio)
-                    print('Escolha seu {} novo sabor'.format(i+1))
+                    print('Escolha seu {}º novo sabor'.format(i+1))
                     sabor = input()
                     sabores.pop(i)
                     sabores.insert(i,sabor)                    
+            else:
+                print('Opção invalida')
+                alterar_sabores(tamanho,cardapio)
         return
 def mais_opcoes():
     print('Essa é a opção mais opções')
@@ -256,6 +265,7 @@ sabores = []
 
 sabores.insert(0,'1')
 sabores.insert(1,'2')
+sabores.insert(1,'3')
 
 #recheio_um = menu[5]
 #print(menu[1])
@@ -264,7 +274,7 @@ sabores.insert(1,'2')
 # print('Tamanho é : {}'.format(tamanho))
 # alterar_tamanho()
 # print('Tamanho é : {}'.format(tamanho))
-tamanho = 'M'
+tamanho = 'G'
 print(sabores)
 saudacao()
 print(tamanho)
