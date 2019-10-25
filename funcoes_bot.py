@@ -1,104 +1,161 @@
-def saudacao():
-    # Pegar o nome do cliente pela lista do Whatsapp
-    nome = input()
-    while(True):
-        print('{}, digite o numero referente a opção desejada:'.format(nome))
-        print('\n')
-        print('1 - Novo pedido\n'
-              '2 - Alteração de pedido\n'
-              '3 - Mais opções')
-        op = int(input())
-        if(op == 1):
-            return novo_pedido()
-        elif(op == 2):
-            return alteracao_pedido()
-        elif (op == 3):
-            return mais_opcoes()
-        else:
-            print('Essa opção não existe')
-
-
 def novo_pedido():
+    """Realiza todo o tratamento de um novo pedido"""
+
     def show_cardapio():
+        """Mostra o cardapio do estabelecimento, arquivado em um .txt"""
         cardapio = open('cardapio.txt', 'r')
         for item in cardapio:
             print(item)
         cardapio.close()
+
     global tamanho
+
+    def um_sabor(option):
+        """Escolha do sabor para apenas um sabor"""
+
+        global tamanho
+
+        if option == 1:
+            tamanho = 'Pequena'
+        elif option == 2:
+            tamanho = 'Media'
+        elif option == 3:
+            tamanho = 'Grande'
+
+        while (True):
+            show_cardapio()
+            sabor = input('Insira o numero referente ao sabor desejado:\n')
+            if sabor.isnumeric():
+                more_options()
+                return sabor
+                break
+            else:
+                sabor = input(
+                    'Ops! Digite apenas o número referente ao sabor:\n')
+
+    def dois_sabores(option):
+        """Escolha do sabor para duas opcoes"""
+
+        global tamanho
+
+        if option == 2:
+            tamanho = 'Media'
+        elif option == 3:
+            tamanho = 'Grande'
+
+        sabores = []
+        while (True):
+            show_cardapio()
+            sabor_1 = input(
+                'Insira o numero referente ao primeiro sabor desejado:\n')
+            # Validando se o valor do sabor_1 eh um numero para poder ser adicionado ao pedido
+            if sabor_1.isnumeric():
+                sabores.append(sabor_1)
+                sabor_2 = input(
+                    'Insira o numero referente ao segundo sabor desejado:\n')
+                # Validando se o valor do sabor_2 eh um numero para poder adicionar ao pedido
+                if sabor_2.isnumeric():
+                    sabores.append(sabor_2)
+                else:
+                    sabor_2 = input(
+                        'Ops! Digite apenas o número referente ao sabor:\n')
+            else:
+                sabor_1 = input(
+                    'Ops! Digite apenas o número referente ao sabor:\n')
+            # Condicao de parada do loop
+            if len(sabores) == 2:
+                more_options()
+                return sabores
+                break
+
+    def tres_sabores():
+        """Escolha dos sabores para tres opcoes"""
+
+        global tamanho
+        tamanho = 'Grande'
+        sabores = []
+        while (True):
+            show_cardapio()
+            sabor_1 = input(
+                'Insira o numero referente ao primeiro sabor desejado:\n')
+            # Validando se o valor do sabor_1 eh um numero para poder ser adicionado ao pedido
+            if sabor_1.isnumeric():
+                sabores.append(sabor_1)
+                sabor_2 = input(
+                    'Insira o numero referente ao segundo sabor desejado:\n')
+                # Validando se o valor do sabor_2 eh um numero para poder adicionar ao pedido
+                if sabor_2.isnumeric():
+                    sabores.append(sabor_2)
+                    sabor_3 = input(
+                        'Insira o numero referente ao primeiro sabor desejado:\n')
+                    # Validando se o valor do sabor_3 eh um numero para poder adicionar ao pedido
+                    if sabor_3.isnumeric():
+                        sabores.append(sabor_3)
+                    else:
+                        sabor_3 = input(
+                            'Ops! Digite apenas o número referente ao sabor:\n')
+                else:
+                    sabor_2 = input(
+                        'Ops! Digite apenas o número referente ao sabor:\n')
+            else:
+                sabor_1 = input(
+                    'Ops! Digite apenas o número referente ao sabor:\n')
+            # Condicao de parada do loop
+            if len(sabores) == 3:
+                more_options()
+                return sabores
+                break
+
+    # Tratamento de decisoes no pedido
     while(True):
         print('Qual o tamanho da sua pizza?\n'
               '1.  PEQUENA\n'
               '2.  MÉDIA\n'
               '3.  GRANDE')
-        option_size = int(input())
-        if option_size == 1:
-            tamanho = 'Pequena'
-            show_cardapio()
-            while (True):
-                sabores.append('Informe o numero do sabor desejado:\n')
-                if sabor.isnumeric():
-                    mais_opcoes(1)
-                else:
-                    print('Ops! Digite apenas o número do sabor!')
-                    sabor = input()
-                if len(sabores) == 1:
-                    break
-        elif option_size == 2:
-            tamanho = 'Media'
-            show_cardapio()
-            while (True):
-                for s in range(2):
-                    sabor = sabores.append(
-                        'Informe o numero do sabor desejado:\n')
-                    if sabor.isnumeric():
-                        pass
-                    else:
-                        print('Ops! Digite apenas o número do sabor!')
-                        sabor = sabores.append(
-                            'Informe o numero do sabor desejado:\n')
-                if len(sabores) == 2:
-                    mais_opcoes(1)
-                    break
-        elif option_size == 3:
-            tamanho = 'Grande'
-            show_cardapio()
-            while (True):
-                for s in range(3):
-                    sabor = sabores.append(
-                        'Informe o numero do sabor desejado:\n')
-                    if sabor.isnumeric():
-                        pass
-                    else:
-                        print('Ops! Digite apenas o número do sabor!')
-                        sabor = sabores.append(
-                            'Informe o numero do sabor desejado:\n')
+
+        option = int(input())
+        if option not in (1, 2, 3):
+            option = input('Ops! Digite apenas o número do tamanho:\n')
+        else:
+            break
+
+    if option == 1:
+        return um_sabor(option)
+
+    elif option == 2:
+        opt_sabor = input(
+            'Deseja sua pizza com quantos sabores?\n(1) 1 Sabor\n(2) 2 Sabores\n')
+        if opt_sabor == 1:
+            return um_sabor(option)
+        else:
+            return dois_sabores(option)
+
+    elif option == 3:
+        opt_sabor = input('Deseja sua pizza com quantos sabores?\n'
+                          '(1) 1 Sabor\n'
+                          '(2) 2 Sabores\n'
+                          '(3) 3 Sabores\n')
 
 
-def alteracao_pedido():
-    print('Essa é a opção alteração pedido')
-
-
-def mais_opcoes(option):
+def more_options():
     borders = ['Catupiry', 'Cheddar', 'Calabresa', 'Queijo', 'Nutela']
     refrigerante = ['Coca-cola', 'Fanta',
                     'Sprite', 'Kuat', 'Guaraná Antartica']
-    if option == 1:
-        opt_border = int(input('Deseja adicionar borda?\n(1) SIM\n(2) NÃO'))
-        if opt_border == 1:
-            print('Escolha o recheio da borda:')
-            for i in range(len(borders)):
-                print(i, borders[i])
-            add_border = int(input())
-        more_add = int(
-            input('Deseja adicionar alguma bebida ao seu pedido?\n(1) SIM\n(2) NÃO'))
-        if more_add == 1:
-            print('Escolha o seu refrigerante:')
-            for i in range(len(refrigerante)):
-                print(i, refrigerante[i])
-            add_refri = int(input())
-        return(total_pedido)
-    else:
-        return(total_pedido)
+
+    opt_border = int(input('Deseja adicionar borda?\n(1) SIM\n(2) NÃO'))
+    if opt_border == 1:
+        print('Escolha o recheio da borda:')
+        for i in range(len(borders)):
+            print(i, borders[i])
+        add_border = int(input())
+    more_add = int(
+        input('Deseja adicionar alguma bebida ao seu pedido?\n(1) SIM\n(2) NÃO'))
+    if more_add == 1:
+        print('Escolha o seu refrigerante:')
+        for i in range(len(refrigerante)):
+            print(i, refrigerante[i])
+        add_refri = int(input())
+    return(total_pedido)
 
 
 def total_pedido(total):
@@ -113,6 +170,7 @@ def total_pedido(total):
 
 
 def payment():
+
     opt_payment = int(
         input('Qual a forma de pagamento:\n(1) Dinheiro\n(2) Cartão'))
     if opt_payment == 1:
@@ -126,27 +184,5 @@ def payment():
         print('Agradecemos sua preferência!')
 
 
-def mais_opcoes():
-    print('Mais Opções')
-    print('\n')
-    while(True):
-        print('digite o numero referente a opção desejada:')
-        print('\n')
-        print('1 - Falar com Atendente Humana')
-        print('2 - Voltar para as opções')
-        op = int(input())
-        if(op == 1):
-            print('Essa opção - fala com a Atendente Humana')
-            return saudacao()
-        elif(op == 2):
-            return saudacao()
-        else:
-            print('Essa opção não é válida')
-            return mais_opcoes()
-
-
-# Vai receber todas as informações do pedido
-total = list()
 tamanho = ''
-sabores = []
 novo_pedido()
